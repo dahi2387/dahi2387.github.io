@@ -1,33 +1,44 @@
 :root {
     --bg-color: #fcfcfc;
     --text-color: #1a1a1a;
-    --accent-color: #335eea;
+    --accent-color: #335eea; /* Vibrant Blue */
+    --accent-hover: #1e44c2;
     --secondary-text: #666;
+    --card-bg: #ffffff;
+    --border-color: #eee;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.1);
 }
 
 body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; /* Cleaner font */
     line-height: 1.6;
     margin: 0;
     color: var(--text-color);
     background-color: var(--bg-color);
 }
 
+/* Nav Bar Glow-up */
 nav {
-    padding: 2rem;
+    padding: 2.5rem;
     display: flex;
     justify-content: center;
-    border-bottom: 1px solid #eee;
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid var(--border-color);
 }
 
 nav a {
-    margin: 0 15px;
+    margin: 0 20px;
     text-decoration: none;
     color: var(--text-color);
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    transition: color 0.3s ease;
 }
 
 nav a:hover {
@@ -35,39 +46,100 @@ nav a:hover {
 }
 
 .container {
-    max-width: 900px;
+    max-width: 1000px; /* Slightly wider for the grid */
     margin: 0 auto;
-    padding: 4rem 2rem;
+    padding: 2.5rem 2rem; /* Reduced top padding from 6rem to 2.5rem */
 }
 
-h1, h2 {
-    font-weight: 300;
-    letter-spacing: -1px;
+h1 {
+    font-size: 2.5rem; /* Reduced from 3.5rem */
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    margin-bottom: 2rem;
+    margin-top: 0; /* Ensures it doesn't push away from the top */
 }
 
+h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+/* The Grid and Card Animation */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    /* This ensures cards stay at a reasonable size and wrap properly */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
     gap: 2rem;
-    margin-top: 2rem;
+    align-items: start;
 }
 
 .card {
-    border: 1px solid #eee;
-    padding: 1.5rem;
-    transition: transform 0.2s;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden; /* CRITICAL: This clips images that try to "blow up" */
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s ease;
 }
 
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--accent-color);
+}
+
+/* 3. Lock down the images */
 .card img {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
-    margin-bottom: 1rem;
+    height: 220px; /* Forces a consistent height */
+    object-fit: cover; /* Crops the image to fit the box instead of stretching it */
+    display: block;
 }
 
+/* Add padding inside the card so text doesn't touch the edges */
+.card h3, .card p, .card .btn {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+}
+
+.card h3 { margin-top: 1.5rem; }
+.card .btn { margin-bottom: 1.5rem; align-self: flex-start; }
+
+/* Social Link Button Styling */
 .social-link {
-    display: block;
+    background: white;
+    border: 1px solid var(--border-color);
+    padding: 2.5rem;
+    border-radius: 16px;
     margin-bottom: 2rem;
+    transition: box-shadow 0.3s ease;
+}
+
+.social-link:hover {
+    box-shadow: var(--shadow);
+}
+
+/* Turning "Visit Profile" into a Button */
+.btn {
+    display: inline-block;
+    padding: 0.8rem 1.8rem;
+    background-color: var(--accent-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px; /* Pill shape */
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    box-shadow: 0 4px 14px 0 rgba(51, 94, 234, 0.39);
+}
+
+.btn:hover {
+    background-color: var(--accent-hover);
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(51, 94, 234, 0.23);
 }
 
 footer {
@@ -75,10 +147,4 @@ footer {
     padding: 4rem;
     font-size: 0.8rem;
     color: var(--secondary-text);
-}
-
-/* Responsive embedding for PDF */
-.pdf-container {
-    height: 800px;
-    width: 100%;
 }
